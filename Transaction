@@ -1,0 +1,143 @@
+package bank;
+
+import java.text.NumberFormat;
+import java.util.ArrayList;
+
+
+
+
+
+
+
+/**
+ *
+ * @author christopherferguson
+ */
+public class Transactions 
+{
+    private int transactionId;
+    private int transactionCounter;
+    private NumberFormat formatter;
+    private ArrayList<TransactionHistory> myList;
+    
+
+
+    public Transactions()
+    {
+        this.transactionId = 0;
+        this.transactionCounter = 0;
+        this.formatter = NumberFormat.getCurrencyInstance();
+        this.myList = new ArrayList();
+        
+    }
+
+    public void setTransactionID(int transid)
+    {
+        transid = this.transactionId;
+    }
+    
+    public void setTransactionCounter()
+    {
+        this.transactionCounter++;
+    }
+    
+    public int getTransactionID()
+    {
+        return this.transactionId;
+    }
+    
+    public int getTransactionCounter()
+    {
+        return this.transactionCounter;
+    }
+    
+    
+    public void GenerateTransRecord(String dateTimeStamp, String username, int userid, double p_balance, double _deposit, double _withdrawal, double _balance, double _overdrawal)
+    {
+                                      
+        this.setTransactionCounter();
+                        
+                        
+        if(_balance >= 0 || _overdrawal > 0)
+        {
+            System.out.println("\nTransaction ID: " + this.transactionCounter +
+                               "\nDate: "+ dateTimeStamp +
+                               "\nUserName: " + username +
+                               "\nUserID: " + userid +
+                               "\nPrevious balance: " + formatter.format(p_balance));
+        }
+                            
+            if(_deposit > 0 )
+            {   
+                              
+                System.out.println("Deposit: " + formatter.format(_deposit));
+                    
+            }
+                            
+            if(_withdrawal > 0 )
+            { 
+                                
+                System.out.println("Withdrawal: " + formatter.format(_withdrawal));
+                        
+            }
+                            
+            if(_balance < 0)
+            {
+                System.out.println("\n** Overdrawal Fee applies ** " + formatter.format(_overdrawal));
+            }
+        
+                System.out.println("\nBalance: " + formatter.format(_balance));
+                        
+                // TransactionHistory object to assign to ArrayList        
+                TransactionHistory history = new TransactionHistory(this.transactionCounter,dateTimeStamp,username, userid, p_balance, _deposit, _withdrawal, _balance,  _overdrawal);
+                           
+             
+                 this.myList.add(history);
+                           
+                            
+                            
+                      
+                         
+    
+    }
+    
+   
+    
+    public void transactionHistory()
+    {
+        
+       
+        for(TransactionHistory history : myList)
+        {
+      
+            System.out.println("\nTransaction ID: " + (history.getTransactionid()) +
+                            "\nDate: "+ (history.getDatetimestamp()) +
+                            "\nUserName: " + (history.getUsername()) +
+                            "\nUserID: " + (history.getUserid()) +
+                            "\nPrevious balance: " + formatter.format (history.getPreviousBalance()));
+        
+            if(history.getDeposit() > 0)
+            {
+                System.out.println("Deposit: " + formatter.format (history.getDeposit()));
+            }
+            if(history.getWithdrawal() > 0)
+            {
+                System.out.println("Withdrawal: " + formatter.format (history.getWithdrawal()));
+            }
+            if(history.getBalance() < 0)
+            {
+                System.out.println("\n** Overdrawal Fee applies **  " + formatter.format (history.getOverdrawal()));
+            }
+        
+                System.out.println("\nBalance: " + formatter.format (history.getBalance()));
+        }
+        
+        
+    }
+        
+        
+}
+
+
+    
+
