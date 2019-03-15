@@ -1,0 +1,157 @@
+package bank;
+
+/**
+ *
+ * @author christopherferguson
+ */
+public class Customer 
+{
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String city;
+    private String state;
+    private String zip;
+    private String phoneNumber;
+    private String emailAddress;
+    private String userName;
+    private int userId;
+    
+    
+    public Customer()
+    {
+        this.firstName = " ";
+        this.lastName = " ";
+        this.address = " ";
+        this.city = " ";
+        this.state = " ";
+        this.zip = " ";
+        this.phoneNumber = " ";
+        this.emailAddress = " ";
+        this.userName = " ";
+        this.userId = 0;
+        
+    }
+    
+    public Customer(String fName, String lName, String _address, String _city, 
+                    String _state, String _zip, String _pNumber, String _eAddress,String userN,int userID)
+    {
+        this.firstName = fName;
+        this.lastName = lName;
+        this.address = _address;
+        this.city = _city;
+        this.state = _state;
+        this.zip = _zip;
+        this.phoneNumber = _pNumber;
+        this.emailAddress = _eAddress;
+        this.userName = userN;
+        this.userId = userID;
+        
+    }
+    
+    public void setFirstName(String fName)
+    {
+        this.firstName = fName;
+    }
+    
+    public void setLastName(String lName)
+    {
+        this.lastName = lName;
+    }
+    
+    public void setAddress(String _address)
+    {
+        this.address = _address;
+    }
+    
+    public void setCity(String _city)
+    {
+        this.city = _city;
+    }
+    
+    public void setState(String _state)
+    {
+        this.state = _state;
+    }
+    
+    public void setZip(String _zip)
+    {
+        this.zip = _zip;
+    }
+    
+    public void setPhoneNumber(String _pNumber)
+    {
+        this.phoneNumber = _pNumber;
+    }
+    
+    public void setEmailAddress(String _eAddress)
+    {
+        this.emailAddress = _eAddress;
+    }
+    
+    public String getFirstName()
+    {
+        return this.firstName;
+    }
+    
+    public String getLastName()
+    {
+        return this.lastName;
+    }
+    
+    public String getAddress()
+    {
+        return this.address;
+    }
+    
+    public String getCity()
+    {
+        return this.city;
+    }
+    
+    public String getState()
+    {
+        return this.state;
+    }
+    
+    public String getZip()
+    {
+        return this.zip;
+    }
+    
+    public String getPhoneNumber()
+    {
+        return this.phoneNumber;
+    }
+    
+    public String getEmailAddress()
+    {
+        return this.emailAddress;
+    }
+    
+    public String getUsername()
+    {
+        return this.userName;
+    }
+    
+    public int getUserId()
+    {
+        return this.userId;
+    }
+           
+    public void getCustomerInfo(String username,int userid)
+    {
+       
+        
+        System.out.println("\n Name: " + this.firstName + " " + this.lastName +
+                            "\n Address: " + this.address +
+                            "\n City: " + this.city +
+                            "\n State: " + this.state +
+                            "\n Zip: " + this.zip +
+                            "\n Phone Number: " + this.phoneNumber +
+                            "\n Email Address: " + this.address +
+                            "\n Username: " + username +
+                            "\n UserID: " + userid);
+    }
+    
+}
