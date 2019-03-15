@@ -1,0 +1,309 @@
+package bank;
+
+import java.util.*;
+/**
+ *
+ * @author christopherferguson
+ */
+public class User 
+{
+    private String userName;
+    private String password;
+    private int userID;
+    private Customer customer;
+  
+    
+    
+    public User()
+    {
+        this.userName = " ";
+        this.password = " ";
+        this.userID = 0;
+        
+    }
+    
+    public User(String _username, String _password)
+    {
+        this.userName = _username;
+        this.password = _password;
+        
+    }
+    
+    
+    
+   public void setUserName(String username)
+   {
+       this.userName = username;
+   }
+   
+   public void setPassword(String password)
+   {
+       this.password = password;
+   }
+   
+   public void setUserID()
+   {
+       Random Rand = new Random();
+        this.userID = Rand.nextInt(1309209210);
+   }
+   
+   public String getUserName()
+   {
+       return this.userName;
+   }
+   
+   public int getUserID()
+   {
+       return this.userID;
+   }
+   
+  
+    public void loginMenu()
+   {
+        System.out.println("\n\n**************************************************" +
+                           "\n*"+"                                                "+"*" +
+                           "\n*"+"    Welcome To Wells Fargo Online Banking       "+"*" +
+                           "\n*"+"                                                "+"*" +
+                           "\n**************************************************");
+         System.out.println("\n       1.) Create new user account                   "+
+                           "\n       2.) Log into account                        "+
+                           "\n       3.) Shut down                      ");
+        
+        System.out.println("**************************************************");
+       
+        System.out.print("\n Your Selection:\n");
+        
+        // Scanner object for user input
+        Scanner scanner = new Scanner(System.in);
+        
+        // assigns user input to variable input
+        int input = scanner.nextInt();
+        
+            switch (input) 
+            {
+                case 1:
+                    createnewaccount();
+                    
+                    break;
+           
+            
+                case 2:
+                    loginintoaccount();
+                    
+                    break;
+                    
+                case 3:
+                    System.exit(0);
+                    break;
+            }
+ 
+   }
+   
+   public void loginintoaccount()
+   {
+       // Scanner object for user input
+       Scanner scanner = new Scanner(System.in);
+       System.out.println("\n   ***********************************************"+
+                          "\n                  Log into account                "+
+                          "\n   ***********************************************\n");
+                
+                   
+                    System.out.println("\n **Enter Username: ");
+                    
+                    // assigns user input to username variable
+                    String username = scanner.next();
+                    
+                    // Sets UserName and password if null
+                    if(this.userName.equals(" "))
+                    {
+                        setUserName("Ferguson2019");
+                        setPassword("Ferguson2019");
+                    }
+                    
+                    // validates userName to match username to login to system
+                    while (!this.userName .equals(username))
+                    {
+                        System.out.println("\n The username you entered is invalid " + "\n Please enter a correct username or -1 to exit");
+                        username = scanner.next();
+                        
+                        // uses the input of -1 to exit program
+                        if(username.equals("-1"))
+                        {
+                            System.exit(0);
+                        }
+                            
+                    }
+                    
+                      System.out.println("\n **Enter Password: ");
+                    
+                    // assigns user input to password variable
+                    String password = scanner.next();
+                    
+                  
+                    // validates password 
+                    while (!this.password .equals(password))
+                    {
+                        System.out.println("\n The password you entered is invalid " + "\n Please enter a correct password or -1 to exit:");
+                        password = scanner.next();
+                        
+                        // uses the input of -1 to exit program
+                        if(password.equals("-1"))
+                        {
+                            System.exit(0);
+                        }
+                    }
+                    
+                    // Creates a BankSystem object to access main menu
+                   BankSystem bank = new BankSystem();
+                  
+                    // adds Customer info to List
+                   bank.toList(customer);
+                   bank.menu();
+       
+   }
+   
+   public void createnewaccount()
+   {
+       Scanner scanner = new Scanner(System.in);
+       
+       System.out.println("\n   ***********************************************"+
+                          "\n                  Create new account              "+
+                          "\n   ***********************************************\n");
+             
+                    // Assign and validate first name      
+                    System.out.println("\n *Enter Firstname:");
+                    
+                    String firstname = scanner.next();
+                    
+                    while(!firstname.matches("[a-zA-Z_]+"))
+                    {
+                        System.out.println("\nInvalid name");
+                        firstname = scanner.next();
+                    }
+                    
+               
+                    // Assign and validate last name 
+                    System.out.println("\n *Enter Lastname:");
+                    
+                    String lastname = scanner.next();
+                    
+                    while(!lastname.matches("[a-zA-Z_]+"))
+                    {
+                        System.out.println("\nInvalid name, please reenter:");
+                        lastname = scanner.next();
+                    }
+                    
+                    // Assign address 
+                    System.out.println("\n *Enter Address:(Enter as such: ***number_streetname_road/street***");
+                    
+                    String address = scanner.next();
+                    
+                    // Assign and validate city 
+                    System.out.println("\n *Enter City:");
+                    
+                    String city = scanner.next();
+                    
+                    while(!city.matches("[a-zA-Z_]+"))
+                    {
+                        System.out.println("\nInvalid city, please reenter:");
+                        city = scanner.next();
+                    }
+                    
+                    // Assign and validate state
+                    System.out.println("\n *Enter State:");
+                    
+                    String state = scanner.next();
+                    
+                    while(!state.matches("[a-zA-Z_]+"))
+                    {
+                        System.out.println("\nInvalid state, please reenter:");
+                        state = scanner.next();
+                    }
+                   
+                    // Assign and validate zip code 
+                    System.out.println("\n *Enter Zip code(ex:30048):");
+                    
+                    String zip = scanner.next();
+                    
+                    while(!zip.matches("[0-9]+"))
+                    {
+                        System.out.println("\nInvalid zip code, please reenter:");
+                        zip = scanner.next();
+                    }
+                    
+                    // Assign and validate phone number
+                    System.out.println("\n *Enter Phonenumber(no dashes):");
+                    
+                    String phonenumber = scanner.next();
+                    
+                    while(!phonenumber.matches("[0-9]+"))
+                    {
+                        System.out.println("\nInvalid phonenumber, please reenter:");
+                        phonenumber = scanner.next();
+                    }
+                    
+                    // Assign and validate email address 
+                    System.out.println("\n *Enter Email address:");
+                    
+                    String emailaddress = scanner.next();
+                    
+                   // Assign and validate new username 
+                    System.out.println("\n Create a new username: ");
+                    
+                    String newusername = scanner.next();
+                    
+                    this.setUserName(newusername);
+                    
+                    while(!newusername.matches("^[A-Za-z_][A-Za-z0-9_]{7,12}$"))
+                    {
+                        System.out.println("\nInvalid username. "+" Enter a valid username. ");
+                        newusername = scanner.next();
+                        this.setUserName(newusername);;
+                    }
+                    
+                     
+                    // Assign and validate new password
+                    System.out.println("\n *Create a new password: ");
+                    
+                    String newpassword = scanner.next();
+                    
+                    this.setPassword(newpassword);
+                    
+                    while(!newpassword.matches("^[A-Za-z_][A-Za-z0-9_]{7,12}$"))
+                    {
+                        System.out.println("\nInvalid password, please reenter:");
+                        newpassword = scanner.next();
+                        this.setPassword(newpassword);
+                    }
+                    
+                     
+                    // sets userID to random number
+                    setUserID();
+                    
+                    System.out.println("\n Welcome "+ firstname +"!" + " userId: " + getUserID());
+                    
+                    // Creates Customer object to add all variables to Arraylist
+                    customer = new Customer(firstname, lastname, address, city, state, zip, phonenumber, emailaddress,newusername,getUserID());
+                    
+                    
+                    
+                    // Creates BankSystem object to access Arraylist and logininro account method
+                    BankSystem showmenu = new BankSystem();
+                    
+                    // Adds Customer object to Arraylist
+                    showmenu.toList(customer);
+                    
+                    //Calls login menu method
+                    loginintoaccount();
+                    
+       
+   }
+   
+   
+  
+  
+   
+   
+    
+    
+}
