@@ -1,0 +1,456 @@
+package bank;
+
+import java.text.NumberFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ *
+ * @author christopherferguson
+ */
+public class BankSystem 
+{
+    private double balance;
+    private double previousBalance;
+    private double deposit;
+    private double withdrawal;
+    private double overdrawal;
+    private LocalDateTime date;
+    private User user;
+    private Transactions trans;
+    private Customer customer;
+    private NumberFormat formatter;
+    private ArrayList<Customer> myList;
+   
+    public BankSystem()
+    {
+        this.balance = 0.0;
+        this.previousBalance = 0.0;
+        this.deposit = 0.0;
+        this.withdrawal = 0.0;
+        this.overdrawal = 0.0;
+        this.date = null;
+        this.user = new User();
+        this.trans = new Transactions();
+        this.customer = new Customer();
+        this.formatter = NumberFormat.getCurrencyInstance();
+        this.myList = new ArrayList();
+    }
+     
+    public BankSystem(double _balance)
+    {
+        this.balance = _balance;
+    }
+    
+    
+    public void setBalance(double _balance)
+    {
+        this.balance = _balance;
+    }
+    
+    public void setPreviousBalance(double _previousBalance)
+    {
+        this.previousBalance = _previousBalance;
+    }
+    
+    public void setDeposit(double _deposit)
+    {
+        this.deposit = _deposit;
+    }
+    
+    public void setWithdrawal(double _withdrawal)
+    {
+        this.withdrawal = _withdrawal;
+    }
+    
+    public void setOverdrawal()
+    {
+        this.overdrawal = 30.00;
+    }
+    
+    public void setDateTime()
+    {
+        
+        this.date = LocalDateTime.now();
+    }
+    
+    public double getBalance()
+    {
+        return this.balance;
+    }
+    
+  
+    public double getPreviousBalance()
+    {
+        return this.previousBalance;
+    }
+    
+    public double getDeposit()
+    {
+        return this.deposit;
+    }
+    
+    public double getWithdrawal()
+    {
+        return this.withdrawal;
+    }
+    
+    public double getOverdrawal()
+    {
+        return this.overdrawal;
+    }
+    
+     public String getDateTime()
+    {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yyy HH:mm:ss");
+        String newDate = dtf.format(this.date);
+        return newDate;
+    }
+    
+    public double calculateDeposit()
+    {
+        this.balance += this.deposit;
+        
+        return this.balance;
+    }
+    
+    public double calculateWithdrawal()
+    {
+        this.balance -= this.withdrawal;
+        
+        calculateOverdrawnCharge();
+        
+        return this.balance;
+    }
+    
+    public void calculateOverdrawnCharge()
+    {
+        
+        if(this.balance < 0)
+        {
+            this.balance -= overdrawal;
+          System.out.println("\n **Overdrawn Charge: $30.00");
+        }
+        
+    }
+    
+    // method to add Customer object to Arraylist
+    public void toList(Customer c)
+    {
+        this.myList.add(c);
+        
+        
+    }
+    
+ 
+    
+    public void menu()
+    {   
+       
+        System.out.println("\n\n**************************************************" +
+                           "\n*"+"                                                "+"*" +
+                           "\n*"+"    Welcome To Wells Fargo Online Banking       "+"*" +
+                           "\n*"+"                                                "+"*" +
+                           "\n**************************************************");
+        
+        System.out.println("\n     * Select from the following options: *         ");
+        
+        System.out.println("\n       1.) Show Account Balance                   "+
+                           "\n       2.) Make a Deposit                         "+
+                           "\n       3.) Make a Withdrawal                      "+
+                           "\n       4.) Show Transaction History               "+
+                           "\n       5.) Show Profile                           "+
+                           "\n       6.) Sign out                               "                                                       );
+        
+        System.out.println("**************************************************");
+        
+        System.out.print("\n Your Selection:\n");
+        
+        Scanner scanner = new Scanner(System.in);
+        
+        int input = scanner.nextInt();
+        
+            switch (input) {
+                case 1:
+                    viewaccountbalance();
+                    break;
+                    
+                case 2:
+                    makedeposit();
+                    break;
+                
+                case 3:
+                    makewithdrawal();
+                    break;
+                    
+                case 4:
+                    showtransactionhistory();
+                        break;
+                    
+                    
+                case 5:
+                    showprofile();
+                    break;
+                    
+                case 6:
+                    signout();
+                    break;
+       
+        }
+    }
+    
+    public void viewaccountbalance()
+    {
+        //Sets time and date, assigns String date to Dateformatted String
+        setDateTime();
+        String date =this.getDateTime();
+        
+        System.out.println("\n   ***********************************************"+
+                           "\n                  Account Balance                 "+
+                           "\n   ***********************************************\n");
+                    
+        System.out.print("\n*** Your Account balance as of " + date + " is: " + formatter.format(this.getBalance())+" ***");
+         
+        
+        this.programTerminator();
+    }
+    
+    public void makedeposit()
+    {
+        String username = " ";
+        int userid = 0;
+        
+        System.out.println("\n   ***********************************************"+
+                           "\n                       Deposit                    "+
+                           "\n   ***********************************************\n");
+        
+        
+        for(Customer c : myList)
+        {
+            // Assigns value to username and userid if No account was created to avoid NullPointerException
+            if(user.getUserName().equals(" ")|| user.getUserName().equals("Ferguson2019"))
+            {
+                user.setUserName("Ferguson2019");
+                user.setPassword("Ferguson2019");
+                if(user.getUserID() == 0)
+                {
+                    user.setUserID();
+                    
+                }
+               
+                username = user.getUserName();
+                userid = user.getUserID();
+                
+            }
+            else if(!user.getUserName().equals("Ferguson2019"))
+            {
+                username = c.getUsername();
+                userid= c.getUserId();
+             
+            }
+        }
+        
+        setDateTime();
+        String date =this.getDateTime();
+        setOverdrawal();
+        
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n Enter the Deposit amount: ");
+                    
+        this.deposit = scanner.nextDouble();
+                    
+        this.setPreviousBalance(this.balance);
+                    
+        this.calculateDeposit();
+                    
+        System.out.println("\n The Previous Balance was: "+ formatter.format(this.getPreviousBalance()));
+                    
+        System.out.println("\n The new balance is: "+ formatter.format(this.getBalance()));
+                    
+        trans.GenerateTransRecord(date, username, userid,this.previousBalance,this.deposit, this.withdrawal,this.balance,this.overdrawal);
+                    
+        this.deposit = 0.0;
+                    
+        this.programTerminator();
+        
+    }
+    
+    public void makewithdrawal()
+    {
+        String username = " ";
+        int userid = 0;
+        
+        System.out.println("\n   ***********************************************"+
+                           "\n                      Withdrawal                  "+
+                           "\n   ***********************************************\n");
+        
+        for(Customer c : myList)
+        {
+         // Assigns value to username and userid if No account was created to avoid NullPointerException
+            if(user.getUserName().equals(" ") || user.getUserName().equals("Ferguson2019"))
+            {
+                user.setUserName("Ferguson2019");
+                user.setPassword("Ferguson2019");
+                if(user.getUserID() == 0)
+                {
+                    user.setUserID();
+                    
+                }
+               
+                username = user.getUserName();
+                userid = user.getUserID();
+                
+            }
+            else if(!user.getUserName().equals("Ferguson2019"))
+            {
+                username = c.getUsername();
+                userid= c.getUserId();
+             
+            }
+        }
+        setDateTime();
+        String date =this.getDateTime();
+        
+        // sets overdrawal fee amount
+        setOverdrawal();
+        
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("\n Enter the withdrawal amount: ");
+                    
+            this.withdrawal = scanner.nextDouble();
+                    
+            this.setPreviousBalance(this.balance);
+                    
+            this.calculateWithdrawal();
+                    
+            System.out.println("\n The Previous Balance was: "+ formatter.format(this.getPreviousBalance()));
+                    
+            System.out.println("\n The new balance is: "+ formatter.format(this.getBalance()));
+                    
+            trans.GenerateTransRecord(date, username, userid, this.previousBalance,this.deposit, this.withdrawal,this.balance,this.overdrawal);
+                    
+            this.withdrawal = 0.0;
+                    
+            this.programTerminator();
+    }
+    
+    public void showtransactionhistory()
+    {
+        String Null = " ";
+        setDateTime();
+        String date =this.getDateTime();
+        
+        
+        System.out.println("\n   ***********************************************"+
+                           "\n                 Transaction History              "+
+                           "\n   ***********************************************\n");
+   
+        if(this.balance != 0 || Null != " ")
+        {
+            System.out.println("\n Your total amount of transactions as of "+ date + " is: "+ trans.getTransactionCounter());
+                
+            trans.transactionHistory();
+                
+            this.programTerminator();
+        }
+         else
+        {
+            System.out.println("There are no Transactions");
+            menu();
+        }
+        
+    }
+    
+    public void showprofile()
+    {
+        System.out.println("\n   ***********************************************"+
+                           "\n                       Profile                    "+
+                           "\n   ***********************************************\n");
+       
+        try {
+            
+        
+                for(Customer c : this.myList)
+                {
+                    System.out.println("\n Name: " + c.getFirstName() + " " + c.getLastName() +
+                                        "\n Address: " + c.getAddress() +
+                                        "\n City: " + c.getCity() +
+                                        "\n State: " + c.getState()+
+                                        "\n Zip: " + c.getZip() +
+                                        "\n Phone Number: " + c.getPhoneNumber() +
+                                        "\n Email Address: " + c.getEmailAddress() +
+                                        "\n Username: " + c.getUsername() +
+                                        "\n UserID: " + c.getUserId());
+                }
+                
+        }
+        catch(Exception e)
+        {
+            System.out.println(" There are no Profile details for a default user");
+            
+            menu();
+        }
+        
+        this.programTerminator();
+    }
+    
+    public void signout()
+    {
+        String choice = " ";
+        
+        System.out.println("\n   ***********************************************"+
+                           "\n                      Sign Out                    "+
+                           "\n   ***********************************************\n");
+        
+        System.out.println("\nAre you sure you want to sign out?");
+        
+            // changes choice variable input to lowercase
+            if(choice.toLowerCase().equals("no"))
+            {
+                menu();
+            }
+            else if(choice.toLowerCase().equals("yes"))
+            {
+                user.loginMenu();
+            }
+            
+    }
+   
+    public void programTerminator()
+    {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("\n   ***********************************************");
+        
+        System.out.println("\n\n Would you Like to return to the main menu (yes) or sign out (no)?\n");
+
+        String answer = scanner.nextLine();
+                   
+                   
+            if("yes".equals(answer.toLowerCase()) )
+            {
+                menu();
+            }
+                
+            if("no".equals(answer.toLowerCase())) 
+            {
+                System.out.print("\nThank you for choosing Wells Fargo Online Service" + "\n Goodbye!!");
+                       
+                System.exit(0);
+            }
+                   
+            if (!answer.isEmpty() && answer.equals("yes")&& answer.equals("no"))
+            {
+                  
+                System.out.println("\n*ERROR* \nPlease Enter either 'yes' or' no'.");
+                       
+                programTerminator();
+                
+        }
+                   
+        
+    }
+}
