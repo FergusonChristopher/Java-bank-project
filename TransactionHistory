@@ -1,0 +1,91 @@
+package bank;
+
+/**
+ *
+ * @author christopherferguson
+ */
+public class TransactionHistory 
+{
+    private String dateTimeStamp;
+    private int transactionid;
+    private String username;
+    private int userid;
+    private double balance;
+    private double previousbalance;
+    private double deposit;
+    private double withdrawal;
+    private double overdrawal;
+    
+    public TransactionHistory()
+    {
+        this.dateTimeStamp = " ";
+        this.transactionid = 0;
+        this.username = " ";
+        this.userid = 0;
+        this.balance = 0.0;
+        this.previousbalance = 0.0;
+        this.deposit = 0.0;
+        this.withdrawal = 0.0;
+        this.overdrawal = 0.0;
+    }
+    
+    public TransactionHistory(int transactionid, String datetimestamp, String username, int userid, double previousbalance, double deposit, double withdrawal, double balance, double overdrawal )
+    {
+        this.transactionid = transactionid;
+        this.dateTimeStamp = datetimestamp;
+        this.username = username;
+        this.userid = userid;
+        this.previousbalance = previousbalance;
+        this.deposit = deposit;
+        this.withdrawal = withdrawal;
+        this.balance = balance;
+        this.overdrawal = overdrawal;
+        
+    }
+    
+    public int getTransactionid()
+    {
+        return this.transactionid;
+    }
+    
+    public String getDatetimestamp()
+    {
+        return this.dateTimeStamp;
+    }
+    
+    public String getUsername()
+    {
+        return this.username;
+    }
+    
+    public int getUserid()
+    {
+        return this.userid;
+    }
+    
+    public double getPreviousBalance()
+    {
+        return this.previousbalance;
+    }
+    
+    public double getDeposit()
+    {
+        return this.deposit;
+    }
+    
+    public double getWithdrawal()
+    {
+        return this.withdrawal;
+    }
+    
+    public double getBalance()
+    {
+        return this.balance;
+    }
+    
+    public double getOverdrawal()
+    {
+        return this.overdrawal;
+    }
+    
+}
